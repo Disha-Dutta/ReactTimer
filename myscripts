@@ -1,0 +1,39 @@
+class Timer extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {count: 1}
+  }
+  componentWillUnmount () {
+    clearInterval(this.timer)
+  }
+  click () {
+    this.setState({count: (this.state.count + 1)})
+  }
+  start () {
+    clearInterval(this.timer)
+    this.timer = setInterval(this.click.bind(this), 1000)
+  }
+  stop () {
+    clearInterval(this.timer)
+  }
+  restart(){
+    this.setState({count:1})
+  }
+  render () {
+    return (
+      <div className='timer'>
+        <h1>{this.state.count}</h1>
+        <div>
+          <button className="start" onClick={this.start.bind(this)}>Start</button>
+          <button className="stop" onClick={this.stop.bind(this)}>Stop</button>
+          <button id="re" onClick={this.restart.bind(this)}>Restart</button>
+        </div>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(
+  <Timer />,
+  document.getElementById('root')
+)
